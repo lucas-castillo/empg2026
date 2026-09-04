@@ -101,25 +101,24 @@ $$  p(H|D) = \frac{p(D|H)P(H)}{p(D)}$$
 :::
 
 ::: {.column width="50%"}
-
 ::: {.r-stack}
 
-::: {.fragment .fade-in-then-out}
 
-```{r map, echo=F}
+::: {.fragment}
+```{r map, echo=F, fig.height=8}
 library(samplr)
 library(tidyverse)
 set.seed(2)
 hill_map <- plot_2d_density(
   start = c(-5,-5), size = 10, 
   cellsPerRow = 150, "mvnorm", list(c(0,0), diag(2))
-) + theme(legend.position="bottom")
+) + myTheme + theme(legend.position="bottom")
 hill_map
 ```
 
 :::
 
-::: {.fragment .fade-in-then-out}
+::: {.fragment}
 
 ```{r, echo=F}
 samples <- samplr::sampler_mh(
