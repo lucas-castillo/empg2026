@@ -1,0 +1,140 @@
+/*-- scss:defaults --*/
+
+// fonts
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700');
+
+$presentation-heading-font: "EB Garamond", serif !default;
+$presentation-heading-font-weight: 600;
+$presentation-h1-font-size: 2.5em;
+
+$font-family-sans-serif: "EB Garamond", serif !default;
+$font-family-monospace: "Fira Code", courier !default;
+
+// colors
+$theme-bg: #EEE;
+$theme-y: #F2D541;
+$theme-r: #8C1A24;
+$theme-b: #1F1613;
+$theme-u: #375C8C;
+$theme-g: #2F5932;
+
+
+$color-bg-primary: $theme-bg;
+$color-text-primary: $theme-g;
+$color-highlight-primary: $theme-r;
+$color-accent-primary: $theme-u;
+$link-color: $theme-u;
+
+$color-bg-code: #ecd9db;
+// $color-text-code: $theme-b;
+// $color-highlight-code: $theme-u;
+// $color-accent-code: $theme-u;
+// 
+$color-bg-invert: $theme-g;
+$color-text-invert: $theme-bg;
+$color-highlight-invert: $theme-u;
+$color-accent-invert: $theme-g;
+// 
+// $color-text-bright: #b0514a;
+// $color-bg-bright: #7eb7cc;
+// $color-highlight-bright: #4d5d75;
+// $color-accent-bright: #fff5e5;
+
+//
+$body-bg: $color-bg-primary !default;
+$body-color: $color-text-primary !default;
+$presentation-heading-color: $color-highlight-primary !default;
+$link-color: $color-highlight-primary !default;
+$code-color: $color-text-primary !default;
+
+$selection-bg: $color-accent-primary !default;
+
+// $code-bg: white !default;
+$code-block-bg: #ecd9db !default;
+$code-block-border-color: $theme-r;
+$code-block-font-size: 1em;
+$presentation-h1-font-size: 3.77em !default;
+$code-font-size: 1em;
+/*-- scss:rules --*/
+
+.red {
+ color: $theme-r;
+}
+.blue {
+ color: $theme-u;
+}
+
+.reveal table td {
+  border-bottom: none;
+}
+img {
+  display: block;// img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+li li { font-size: 80%; }
+
+
+// // lua filter classes for h1 type slides
+.inv-title h1 {
+  color: $color-text-invert !important;
+  background-color: $color-bg-invert;
+}
+.inv-title p {
+  color: $color-text-invert !important;
+  background-color: $color-bg-invert;
+}
+.inv-title code {
+  background-color: $color-bg-invert;
+}
+.inv-title code {
+  background-color: $color-bg-invert;
+}
+
+#title-slide {
+  text-align: left;
+  justify-content: left;
+  .title {
+    font-size: 2em;
+  }
+  .subtitle {
+    font-size: 2em;
+    font-style: italic;
+    color: $color-highlight-primary;
+  }
+  .quarto-title-authors {
+    justify-content: left;
+    .quarto-title-author {
+        padding-left: 0;
+    }
+  }
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.reveal div.sourceCode {
+    border: 0px;
+    border-left: 10px solid #8c1a24;
+    border-radius: 4px;
+}
+.reveal pre code {
+  overflow: hidden;
+  line-height: 1;
+}
+
+.reveal .code-wrapper code tr:not(.highlight-line) {
+  opacity: 0.4;            /* Make non-highlighted lines more transparent */
+ // filter: blur(0.5px);     /* Optional: Slightly blur non-focused text */
+}
+.reveal .slides section div.callout{
+  font-size: .9em;
+  border-right:0;
+  border-top:0;
+  border-bottom:0;
+}
