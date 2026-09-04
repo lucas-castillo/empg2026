@@ -101,7 +101,7 @@ li li { font-size: 80%; }
     font-size: 2em;
   }
   .subtitle {
-    font-size: 2em;
+    font-size: 1.5em;
     font-style: italic;
     color: $color-highlight-primary;
   }
@@ -114,6 +114,7 @@ li li { font-size: 80%; }
 }
 
 .center {
+  text-align: center;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -132,9 +133,14 @@ li li { font-size: 80%; }
   opacity: 0.4;            /* Make non-highlighted lines more transparent */
  // filter: blur(0.5px);     /* Optional: Slightly blur non-focused text */
 }
+
 .reveal .slides section div.callout{
   font-size: .9em;
   border-right:0;
   border-top:0;
   border-bottom:0;
 }
+
+.reveal pre.sourceCode code { 
+   max-height: 800px; 
+} 
