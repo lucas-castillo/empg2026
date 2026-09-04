@@ -597,19 +597,8 @@ In @davis2020ProcessModelCausal, MCMC explains people's failures to integrate ev
 
 ::: {.fragment fragment-index=4}
 @zhu2024AutocorrelatedBayesianSampler incorporate MCMC into a larger model ([Autocorrelated Bayesian Sampler]{.blue style="font-weight:bold"}) that can explain choices, reaction times, estimates, and confidence judgements
-MCMC approaches to cognition ([https://sampling.warwick.ac.uk/#Literature](https://sampling.warwick.ac.uk/#Literature))
-
-::: {style="font-size:.65em"}
-
-- perception [@gershman2012MultistabilityPerceptualInference]
-- item generation [@castillo2024ExplainingFlawsHuman]
-- judgment [@dasgupta2017WhereHypothesesCome]
-- estimation [@zhu2022UnderstandingStructureCognitive;@spicer2022PerceptualCognitiveJudgments]
-- learning [@bruckner2025DifferencesLearningLifespan]
-- inference [@bramley2017FormalizingNeurathsShip;@davis2020ProcessModelCausal]
-- forecasting [@spicer2024HowPeoplePredict]
 :::
-:::
+
 
 :::
 :::
@@ -633,6 +622,24 @@ MCMC approaches to cognition ([https://sampling.warwick.ac.uk/#Literature](https
 
 :::
 
+:::
+
+## MCMC appraches to cognition
+
+- perception [@gershman2012MultistabilityPerceptualInference]
+- item generation [@castillo2024ExplainingFlawsHuman]
+- judgment [@dasgupta2017WhereHypothesesCome]
+- estimation [@zhu2022UnderstandingStructureCognitive;@spicer2022PerceptualCognitiveJudgments]
+- learning [@bruckner2025DifferencesLearningLifespan]
+- inference [@bramley2017FormalizingNeurathsShip;@davis2020ProcessModelCausal]
+- forecasting [@spicer2024HowPeoplePredict]
+- random generation [@castillo2024ExplainingFlawsHuman;@castillo2026RandomGenerationWhat]
+
+::: {.fragment}
+::: {.callout-tip}
+## Sampling Website
+We have compiled literature here: [https://sampling.warwick.ac.uk/#Literature](https://sampling.warwick.ac.uk/#Literature){target="_blank"}
+:::
 :::
 
 ## Many MCMC approaches
