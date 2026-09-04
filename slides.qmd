@@ -729,29 +729,6 @@ bench::mark(
 :::
 
 
-## Which MCMC algorithm are people using?
-::: {.center}
-::: {style = "width:50%"}
-![](img/stim-samp-resp.png){fig-align="center"}
-
-:::
-:::
-
-
-# Random Generation
-
-## The Random Generation Paradigm
-::: {.columns}
-
-::: {.column width="50%"}
-In @castillo2024ExplainingFlawsHuman, we evaluated this directly: 
-
-::: {.incremental}
-- We used the random generation paradigm [@baddeley1966CapacityGeneratingInformation; @chapanis1953RandomnumberGuessingBehavior]: asking participants to sample directly.
-![](img/procedure.PNG)
-- We compared properties of their random sequences with those from different sampling algorithms.  
-:::
-:::
 
 ::: {.column width="50%"}
 ::: {.r-stack}
