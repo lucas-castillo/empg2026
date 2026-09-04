@@ -736,9 +736,9 @@ Three qualitative "tricks" to improve MCMC performance:
 | Metropolis Hastings (MH) [@hastings1970MonteCarloSampling]| `sampler_mh()` | ❌   | ❌   | ❌   |
 | Metropolis-coupled MCMC (MC$^3$) [@geyer1991MarkovChainMonte] | `sampler_mc3()` | ✅   | ❌   | ❌   |
 | Hamiltonian Monte Carlo (HMC) [@neal2011MCMCUsingHamiltonian] | `sampler_hmc()` | ❌   | ✅   | ❌   |
-| [RECMH*]{.rn-fragment rn-type=highlight rn-color=yellow} | `sampler_mh(alpha=)` | ❌   | ❌   | ✅   |
+| RECMH* | `sampler_mh(alpha=)` | ❌   | ❌   | ✅   |
 | MCHMC                    | `sampler_mchmc()` | ✅   | ✅   | ❌   |
-| [RECMC3*]{.rn-fragment rn-type=highlight rn-color=yellow} |`sampler_mc3(alpha=)` |  ✅   | ❌   | ✅   |
+| RECMC3*|`sampler_mc3(alpha=)` |  ✅   | ❌   | ✅   |
 | RECHMC [@horowitz1991GeneralizedGuidedMonte]                      | `sampler_rec()` | ❌   | ✅   | ✅   |
 | MCREC                    | `sampler_mcrec()` | ✅   | ✅   | ✅   |
 
