@@ -643,8 +643,6 @@ We have compiled literature here: [https://sampling.warwick.ac.uk/#Literature](h
 :::
 :::
 
-## Many MCMC approaches
-::: {.columns}
 
 ## Can be a bit daunting...
 ::: {.r-stack}
@@ -652,11 +650,6 @@ We have compiled literature here: [https://sampling.warwick.ac.uk/#Literature](h
 
 ::: {.fragment .fade-in-then-out height=800px}
 ![](img/mh_pseudocode.png){height="800px"}
-::: {.column width="50%"}
-::: {.incremental}
-- Computer science literature on MCMC is not a monolith
-  - instead, many MCMC algorithms exist [(with different pros and cons)]{.fragment}
-- MCMC algorithms can be described as having 'qualitative features'
 :::
 ::: {.fragment .fade-in-then-out height=800px}
 ![](img/mc3_pseudocode.png){height="800px"}
@@ -665,30 +658,10 @@ We have compiled literature here: [https://sampling.warwick.ac.uk/#Literature](h
 ![](img/hmc_pseudocode.png){height="800px"}
 :::
 
-::: {.column width="50%"}
-::: {.r-stack}
-::: {.fragment .fade-in-then-out}
-```{r map2, options}
-set.seed(1)
-N <- 5
-# Create a matrix with the means of 15 different Gaussians
-names <- rep("mvnorm", N)
-parameters <- list()
-for (i in 1:N){
-  parameters[[i]] <- list(runif(2) * 18 - 9, diag(2))
-}
 
 :::
 
-weights <- runif(N)
-weights <- weights / sum(weights)
 
-hill_map <- plot_2d_density(
-  start = c(-14,-14), size = 28, 
-  cellsPerRow = 150, names, parameters, weights
-) + 
-  theme(legend.position = "bottom")
-hill_map
 ```
 :::
 ::: {.fragment .fade-in-then-out}
