@@ -137,24 +137,6 @@ hill_map +
 
 :::
 
-::: {.fragment}
-
-```{r, echo=F}
-samples <- samplr::sampler_mh(
-  start = c(-2,-2), 
-  distr_name = "mvnorm", 
-  distr_params = list(c(0,0), diag(2)), sigma_prop = diag(2) * .01, 
-  iterations = 5e4
-  )$Samples
-MH_df <- tibble(x=samples[,1], y = samples[,2])
-hill_map + 
-  # geom_path(MH_df, mapping = aes(x,y), 
-            # colour = "red", linetype = "dashed", size = .5) + 
-  geom_point(MH_df, mapping = aes(x,y), 
-             colour = "white",size =1, alpha=.1) + theme(legend.position="bottom")
-```
-
-:::
 
 :::
 :::
