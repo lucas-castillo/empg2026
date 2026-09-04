@@ -42,6 +42,20 @@ csl: apa.csl
 editor_options: 
   chunk_output_type: console
 ---
+```{r echo=F}
+library(tidyverse)
+library(samplr)
+library(patchwork)
+myTheme <- theme_minimal() + 
+    theme(
+      legend.position = "none", 
+      axis.title = element_blank(), axis.text = element_blank(), 
+      panel.grid = element_blank(), 
+      panel.background = element_rect(fill="#eeeeee", colour="#eeeeee"),
+      plot.background = element_rect(fill="#eeeeee", colour="#eeeeee")
+      )
+theme_set(myTheme)
+```
 
 ## Optimal behaviour is hard
 
