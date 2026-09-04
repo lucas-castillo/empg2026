@@ -662,47 +662,55 @@ We have compiled literature here: [https://sampling.warwick.ac.uk/#Literature](h
 :::
 
 
+## The `samplr` package
+R package available on CRAN
+```{r, echo=T, eval=F}
+install.packages("samplr")
 ```
+
+<br>
+
+
+::: {.columns}
+::: {.column width="50%"}
+
+::: {.fragment}
+![](img/mh_pseudocode.png)
 :::
-::: {.fragment .fade-in-then-out}
-```{r}
-iterations = 2**10
-MH <- sampler_mh(
-  start = c(5,5), distr_name = names, distr_params = parameters, 
-  sigma_prop = diag(2) / 8, iterations = iterations, weights = weights
+:::
+
+
+::: {.column width="50%"}
+::: {.fragment}
+```{r mh, eval=F, echo=T}
+#| code-line-numbers: "1|3-4|2|5|6"
+sampler_mh(
+  start = 1,
+  distr_name = "norm",
+  distr_params = c(0, 1),
+  sigma_prop = .1,
+  iterations = 1e4
 )
-
-MH_df <- data.frame(x = MH[[1]][,1], y = MH[[1]][,2])
-
-hill_map + 
-  geom_path(MH_df, mapping = aes(x,y), 
-            colour = "red", linetype = "dashed", size = .3) + 
-  geom_point(MH_df, mapping = aes(x,y), 
-             colour = "white",size =.1) +
-  theme(legend.position = "bottom")
 ```
 :::
+
 ::: {.fragment}
 ```{r}
-iterations = 2**10
-MC3 <- sampler_mc3(
-  start = c(5,5), distr_name = names, distr_params = parameters, 
-  sigma_prop = diag(2) / 8, iterations = iterations, weights = weights
-)
-
-MC3_df <- data.frame(x = MC3[[1]][,1,1], y = MC3[[1]][,2,1])
-
-hill_map + 
-    geom_path(MH_df, mapping = aes(x,y), 
-            colour = "red", linetype = "dashed", size = .3) + 
-    geom_point(MH_df, mapping = aes(x,y), 
-             colour = "white",size =.1) +
-    geom_path(MC3_df, mapping = aes(x,y), 
-            colour = "yellow", linetype = "dashed", size = .3) + 
-  geom_point(MC3_df, mapping = aes(x,y), 
-             colour = "white",size =.1) +
-  theme(legend.position = "bottom")
+bench::mark(
+  "MH (1e4)" = {x <- sampler_mh(
+    start = 1,
+    distr_name = "norm",
+    distr_params = c(0, 1),
+    sigma_prop = .1,
+    iterations = 1e4
+  )}, filter_gc = F
+) %>% select(expression:median) %>% knitr::kable()
 ```
+:::
+:::
+
+:::
+
 :::
 :::
 :::
