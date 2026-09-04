@@ -711,11 +711,22 @@ bench::mark(
 
 :::
 
+## Incorporating onto your model
+::: {.r-stack}
+::: {.fragment}
+![](img/bruckner-model1.png){height=600}
 :::
+::: {.fragment}
+![](img/bruckner-model2.png){height=600}
 :::
+::: {.fragment}
+![](img/bruckner-model3.png){height=600}
 :::
 :::
 
+::: {.absolute bottom=0}
+@bruckner2025DifferencesLearningLifespan
+:::
 
 
 ## Which MCMC algorithm are people using?
