@@ -596,6 +596,7 @@ In @davis2020ProcessModelCausal, MCMC explains people's failures to integrate ev
 :::
 
 ::: {.fragment fragment-index=4}
+@zhu2024AutocorrelatedBayesianSampler incorporate MCMC into a larger model ([Autocorrelated Bayesian Sampler]{.blue style="font-weight:bold"}) that can explain choices, reaction times, estimates, and confidence judgements
 MCMC approaches to cognition ([https://sampling.warwick.ac.uk/#Literature](https://sampling.warwick.ac.uk/#Literature))
 
 ::: {style="font-size:.65em"}
@@ -621,15 +622,18 @@ MCMC approaches to cognition ([https://sampling.warwick.ac.uk/#Literature](https
 ::: {.fragment .fade-in-then-out fragment-index=2}
 ![](img/lieder.png)
 :::
-::: {.fragment fragment-index=3}
+::: {.fragment fragment-index=3 .fade-in-then-out}
 ![](img/davisrehder.png)
 :::
+::: {.fragment fragment-index=4}
+![](img/zhu.png)
 :::
 
 :::
 
 :::
 
+:::
 
 ## Many MCMC approaches
 ::: {.columns}
