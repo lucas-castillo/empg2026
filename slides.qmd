@@ -1262,133 +1262,54 @@ t(sapply(1:1000, \(x){alpha_recycle(c(1,0), 0.75)})) %>%
 :::
 
 
-# Autocorrelated Sampling at Home
-
-## MCMC as part of cognitive model
-::: {.center}
-::: {style = "width:50%"}
-![](img/stim-samp-resp2.png){fig-align="center"}
-:::
-:::
-
-::: {.fragment}
-
-::: {.incremental}
-For example: in @bruckner2025DifferencesLearningLifespan participants:
-
-1. Observe new evidence
-1. [Sample a chunk of samples from posterior]{.red}
-1. Evaluate whether sample mean different from initial belief
-1. If so, update beliefs and go to 2, otherwise discard samples
-
-:::
-:::
-
-
-## The `samplr` package
+## Features grounded in data
 ::: {.columns}
-::: {.column}
-::: {style="height:100px"}
-::: {.fragment}
-```{r, echo=T, eval=F}
-#| code-line-numbers: "1|3-7|2|8-9"
-samplr::sampler_mh(
-  start = c(-2,-2), 
-  distr_name = "mvnorm", 
-  distr_params = list(
-    c(0,0), 
-    diag(2)
-  ), 
-  sigma_prop = diag(2) * .01, 
-  iterations = 500
-  )$Samples
-```
-:::
-:::
+
+::: {.column width="50%"}
+@castillo2024ExplainingFlawsHuman and @castillo2026RandomGenerationWhat ask participants to produce a sequence of random heights
+
+- Sequences best explained by an MCMC model with all qualitative features (above a random generation model; @cooper2016ExecutiveFunctionsGeneration)
+- Asking people to produce items as they "come to mind" shows no difference in performance
 :::
 
 ::: {.column width="50%"}
-::: {.fragment}
-
-```{r}
-set.seed(2)
-hill_map <- plot_2d_density(
-  start = c(-5,-5), size = 10, 
-  cellsPerRow = 150, "mvnorm", list(c(0,0), diag(2))
-) + theme(legend.position="bottom")
-samples <- samplr::sampler_mh(
-  start = c(-2,-2), 
-  distr_name = "mvnorm", 
-  distr_params = list(c(0,0), diag(2)), sigma_prop = diag(2) * .01, 
-  iterations = 500
-  )$Samples
-MH_df <- tibble(x=samples[,1], y = samples[,2])
-hill_map + 
-  geom_path(MH_df, mapping = aes(x,y), 
-            colour = "red", linetype = "dashed", size = .5) + 
-  geom_point(MH_df, mapping = aes(x,y), 
-             colour = "white",size =.5) + theme(legend.position="bottom")
-```
+![](img/castillo_procedure.png)
+![](img/castillo_params.png)
 :::
 
+:::
+
+## Summary
+
 ::: {.fragment}
-::: {.callout-note}
 ### Offerings of the package
+::: {.incremental}
+
+
 - 8 MCMC algorithms with/without 3 qualitative features
 - Cognitive model that incorporates MCMC sampling [ABS, @zhu2024AutocorrelatedBayesianSampler]
 - Diagnostic functions that can help distinguish between models
+
 :::
 :::
-:::
-:::
 
+::: {.fragment}
 
-::: {.fragment .absolute bottom="0" left="0"}
-[https://lucas-castillo.github.io/samplr/](https://lucas-castillo.github.io/samplr/)
-:::
-
-
-## The `samplr` package
-::: {.aspect-ratio-box style="position: relative; width: 100%; height: 0; padding-bottom: 56.25%;"}
-```{=html}
-<iframe src="https://lucas-castillo.github.io/samplr/" data-external="1" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"></iframe>
-```
-:::
-
-
-
-## The `samplr` package
-::: {.columns}
-
-::: {.column width="50%"}
-Preprint (under review at [Behavior Research Methods]{.red}):
-
+### Documentation
 ::: {.incremental}
 
-- How to use the package
-- How to fit MCMC models to data
-
-:::
-:::
-
-::: {.column width="50%"}
-[View PDF](https://osf.io/preprints/psyarxiv/ax8hm_v2){target="_blank"}
-:::
-
+- Package is well documented with several vignettes ([link](https://lucas-castillo.github.io/samplr/){target="blank"})
+- Paper [@castillo2025SamplrPackageTool] under review ([🤞]{style="font-size:.8em"}!) at [Behaviour Research Methods]{.red style="font-weight:bold"} ([link](https://osf.io/preprints/psyarxiv/ax8hm_v2){target="blank"})
+  - Qualitative phenomena MCMC algorithms have fit
+  - Introduction to ABS model and how its implemented in the package
+  - Introduction to simulation-based inference (to fit these models without likelihoods).
+- Recently we did a workshop on this, materials available online ([link](https://lucas-castillo.github.io/mcmc-workshop/){target="blank"})
+  
 :::
 
 
-
-::: {.absolute bottom="0" left="0"}
-@castillo2025SamplrPackageTool
 :::
 
-## Take home message
-::: {.incremental}
-- MCMC sampling is a successful approach to modelling cognition
-- Using random generation, we can identify which sampler the mind uses
-- Applying MCMC to your models is easier than ever with the `samplr` package
-:::
 
 ## Thank you
 
@@ -1405,22 +1326,6 @@ Preprint (under review at [Behavior Research Methods]{.red}):
 :::
 
 :::
-
-<!-- ::: {layout-ncol=6 style="font-size:.65em"} -->
-<!-- #### Pablo León-Villagrá -->
-<!-- ![](img/people/pabloleonvillagra.jpg){width=80%} -->
-
-<!-- #### Johanna K Falbén -->
-<!-- ![](img/people/johannafalben.jpg){width=80%} -->
-
-
-<!-- #### C. Stella Qian -->
-<!-- ![](img/people/stella.jpeg){width=80%} -->
-
-<!-- #### Nick Chater -->
-<!-- ![](img/people/nickchater.jpg){width=80%} -->
-
-<!-- ::: -->
 
 
 ![](img/erc.jpg){width=200px}
@@ -1442,12 +1347,11 @@ Link to `samplr` package paper
 ![](img/qr-BRM.png)
 :::
 ::: {.column width="30%"}
-Link to random generation paper
-![](img/qr-cog.png)
+Link to workshop materials
+![](img/qr-workshop.png)
 :::
 
 :::
-
 
 
 ## References
@@ -1455,78 +1359,3 @@ Link to random generation paper
 ::: {#refs}
 :::
 
-<!-- ## This is another slide -->
-
-<!-- with some more [text]{.rn-fragment rn-type=underline rn-color=red} -->
-
-<!-- # New Section -->
-
-<!-- ## Code Slide -->
-
-<!-- ::: {.columns} -->
-
-<!-- ::: {.column width="50%"} -->
-
-<!-- ```{r, echo=T, eval=F} -->
-
-<!-- #| flourish: -->
-
-<!-- #|   - target: "mean" -->
-
-<!-- #|     style: "--rn-type: circle; --rn-color: red;" -->
-
-<!-- x <- c(1, 2, 3, 4, 5) -->
-
-<!-- mean(x) -->
-
-<!-- ``` -->
-
-<!-- ::: -->
-
-<!-- ::: {.column width="50%"} -->
-
-<!-- ```{r} -->
-
-<!-- mean(1:5) -->
-
-<!-- ``` -->
-
-<!-- ::: -->
-
-<!-- ::: -->
-
-<!-- ## Code 2 -->
-
-<!-- ```{r, echo=T, eval=F} -->
-
-<!-- #| flourish: -->
-
-<!-- #|   - target: "mean" -->
-
-<!-- #|     style: "--rn-type: circle; --rn-color: red;" -->
-
-<!-- x <- c(1, 2, 3, 4, 5) -->
-
-<!-- mean(x) -->
-
-<!-- ``` -->
-
-<!-- ## Snippets -->
-
-<!-- I've defined the following snippets -->
-
-<!--   - [`tf`]{.rn-fragment rn-type=underline rn-color=red} for text flourish -->
-
-<!--   - [`cf`]{.rn-fragment rn-type=underline rn-color=red} for code flourish -->
-
-<!--   - `::` for quarto div -->
-
-<!--   - `col` for 2-column environment -->
-
-<!-- $$ -->
-<!-- p(H|D) = \frac{% -->
-<!--     \data{rn-color=#F2D541}{\class{rn-fragment fragment}{p(D|H)P(H)}} -->
-<!--     }{% -->
-<!--       \data{rn-color=#F2D541}{\class{rn-fragment fragment}{p(B)}} -->
-<!-- } -->
-<!-- $$ -->
