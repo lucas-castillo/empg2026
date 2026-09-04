@@ -1277,7 +1277,7 @@ t(sapply(1:1000, \(x){alpha_recycle(c(1,0), 0.75)})) %>%
 
 :::
 
-## Summary
+## Overview
 
 ::: {.fragment}
 ### Offerings of the package
