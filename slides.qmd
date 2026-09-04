@@ -761,7 +761,7 @@ Three qualitative "tricks" to improve MCMC performance:
 :::
 
 
-## MCMC Algorithms Available 
+## Time performance
 ```{r}
 performance <- bench::mark(
   "MH"={sampler_mh(
