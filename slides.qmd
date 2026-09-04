@@ -1241,34 +1241,8 @@ t(sapply(1:1000, \(x){alpha_recycle(c(1,0), 0.75)})) %>%
 :::
 :::
 
-:::
-
-## Results
 ::: {.r-stack}
-::: {.fragment .fade-in-then-out}
-```{r}
-df <- samplrData::castillo2024.rgmomentum.e1 %>% 
-  filter(target_dist == "N") %>% 
-  group_by(id) %>% 
-  summarise(across(R:expected_D, \(x){mean(x, na.rm=T)})) %>% 
-  pivot_longer(R:expected_D) %>% 
-  mutate(expected = str_detect(name, "expected")) %>% 
-  mutate(name = str_remove(name, "expected_")) %>% 
-  pivot_wider(values_from = value, names_from = name)
-df %>% 
-  filter(!expected) %>% 
-  select(-S) %>% 
-  pivot_longer(R:D) %>% 
-  ggplot(aes(name, value)) + 
-  ggbeeswarm::geom_quasirandom(alpha=0) +
-  facet_wrap(vars(name), scales="free", ncol=4) +
-  geom_hline(
-    data = df %>% summarise(across(R:D, mean)) %>% pivot_longer(everything()),
-    aes(yintercept = value)
-  ) + 
-  theme_minimal(20)
 
-```
 :::
 
 ::: {.fragment .fade-in}
