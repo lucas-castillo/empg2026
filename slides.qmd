@@ -1392,25 +1392,35 @@ Preprint (under review at [Behavior Research Methods]{.red}):
 
 ## Thank you
 
-::: {layout-ncol=6 style="font-size:.65em"}
-#### Pablo León-Villagrá
-![](img/people/pabloleonvillagra.jpg){width=80%}
+::: {.columns}
 
-#### Johanna K Falbén
-![](img/people/johannafalben.jpg){width=80%}
-
+::: {.column width="50%"}
 #### Yun-Xiao Li
-![](img/people/liyunxiao.jpg){width=80%}
-
-#### C. Stella Qian
-![](img/people/stella.jpeg){width=80%}
-
-#### Nick Chater
-![](img/people/nickchater.jpg){width=80%}
-
-#### Adam N. Sanborn
-![](img/people/adam.jpg){width=100%}
+![](img/people/liyunxiao.jpg){width=50%}
 :::
+
+::: {.column width="50%"}
+#### Adam N. Sanborn
+![](img/people/adam.jpg){width=50%}
+:::
+
+:::
+
+<!-- ::: {layout-ncol=6 style="font-size:.65em"} -->
+<!-- #### Pablo León-Villagrá -->
+<!-- ![](img/people/pabloleonvillagra.jpg){width=80%} -->
+
+<!-- #### Johanna K Falbén -->
+<!-- ![](img/people/johannafalben.jpg){width=80%} -->
+
+
+<!-- #### C. Stella Qian -->
+<!-- ![](img/people/stella.jpeg){width=80%} -->
+
+<!-- #### Nick Chater -->
+<!-- ![](img/people/nickchater.jpg){width=80%} -->
+
+<!-- ::: -->
 
 
 ![](img/erc.jpg){width=200px}
