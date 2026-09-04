@@ -120,7 +120,7 @@ hill_map
 
 ::: {.fragment}
 
-```{r, echo=F}
+```{r, echo=F, fig.height=8}
 samples <- samplr::sampler_mh(
   start = c(-2,-2), 
   distr_name = "mvnorm", 
