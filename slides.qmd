@@ -30,8 +30,8 @@ filters:
 knitr:
   opts_chunk:
     dev: png
-    dev.args: { bg: "transparent"}
-execute: 
+    # dev.args: { bg: "transparent"}
+execute:
   cache: true
 editor: source
 mouse-wheel: false
@@ -56,7 +56,6 @@ myTheme <- theme_minimal() +
       )
 theme_set(myTheme)
 ```
-
 ## Optimal behaviour is hard
 
 Human behaviour is similar to the Bayesian ideal
@@ -137,11 +136,442 @@ hill_map +
 
 :::
 
-
 :::
 :::
 
 :::
+
+
+## Metropolis Hastings
+```{r mh-setup, cache=F}
+library(tidyverse)
+library(samplr)
+library(patchwork)
+theme_set(
+  theme_minimal() + 
+    theme(
+      legend.position = "none", 
+      axis.title = element_blank(), axis.text = element_blank(), 
+      panel.grid = element_blank(), 
+      panel.background = element_rect(fill="#eeeeee", colour="#eeeeee"),
+      plot.background = element_rect(fill="#eeeeee", colour="#eeeeee")
+      )
+)
+
+set.seed(1)
+theme.g =  "#2F5932"
+theme.r = "#8C1A24"
+  
+
+target <- tibble(x = seq(-3, 3, .01)) %>% 
+  mutate(y = dnorm(x)) %>% 
+  ggplot(aes(x, y)) + 
+  geom_path() + xlim(-3, 3) + ylim(0, .4)
+
+
+res <- samplr::sampler_mh(start = -2, "norm", c(0, 1), sigma_prop = .1, iterations = 10000)
+
+res <- tibble(
+  samples = res$Samples[,1], 
+  proposals = c(res$Proposals[2:10000], NA),
+  accept = (res$Samples == res$Proposals)[,1] 
+  ) %>% 
+  mutate(i = 1:n())
+
+
+res <- res %>% 
+  mutate(across(c(samples, proposals), dnorm, .names = "{.col}_y"))
+
+
+base <- ggplot() + xlim(-3, 3) + ylim(0, .4)
+```
+
+
+::: {.columns}
+
+::: {.column width="50%"}
+
+::: {.r-stack}
+::: {.fragment}
+```{r, fig.height=8}
+base + 
+  geom_point(
+    data = res[1,],
+    aes(x=samples, y=samples_y), 
+    size = 5
+)
+```
+:::
+
+::: {.fragment}
+```{r, fig.height=8}
+base + 
+  geom_point(
+    data = res[1,],
+    aes(x=samples, y=samples_y), 
+    size = 5
+  ) + 
+  geom_point(
+    data = res[2,],
+    aes(x=samples, y=samples_y), 
+    size = 5, color="grey"
+  )
+```
+:::
+::: {.fragment}
+```{r, fig.height=8}
+base + 
+  geom_point(
+    data = res[1,],
+    aes(x=samples, y=samples_y), 
+    size = 5
+  ) + 
+  geom_point(
+    data = res[2,],
+    aes(x=samples, y=samples_y), 
+    size = 5, color="grey"
+  ) + 
+  geom_segment(
+    data = res[1,],
+    aes(x=samples, y=samples_y), yend=0 
+  ) + 
+  geom_segment(
+    data = res[2,],
+    aes(x=samples, y=samples_y), yend=0,
+    color="grey"
+  )
+
+```
+:::
+::: {.fragment}
+```{r, fig.height=8}
+base + 
+  geom_point(
+    data = res[1,],
+    aes(x=samples, y=samples_y), 
+    size = 5
+  ) + 
+  geom_point(
+    data = res[2,],
+    aes(x=samples, y=samples_y), 
+    size = 5, color=theme.g
+  )
+```
+:::
+::: {.fragment}
+```{r, fig.height=8}
+target + 
+  geom_point(
+    data = res[1,],
+    aes(x=samples, y=samples_y), 
+    size = 5
+  ) + 
+  geom_point(
+    data = res[2,],
+    aes(x=samples, y=samples_y), 
+    size = 5, color=theme.g
+  )
+```
+:::
+
+::: {.fragment}
+```{r, fig.height=8}
+target + 
+  geom_point(
+    data = res[1:2,],
+    aes(x=samples, y=samples_y), 
+    size = 5
+  ) + 
+  geom_point(
+    data = res[3,],
+    aes(x=samples, y=samples_y), 
+    size = 5, color="grey"
+  )
+```
+:::
+
+::: {.fragment}
+```{r, fig.height=8}
+base + 
+  geom_point(
+    data = res[2,],
+    aes(x=samples, y=samples_y), 
+    size = 5
+  ) + 
+  geom_point(
+    data = res[3,],
+    aes(x=samples, y=samples_y), 
+    size = 5, color="grey"
+  ) + 
+  geom_segment(
+    data = res[2,],
+    aes(x=samples, y=samples_y), yend=0 
+  ) + 
+  geom_segment(
+    data = res[3,],
+    aes(x=samples, y=samples_y), yend=0,
+    color="grey"
+  )
+
+```
+:::
+::: {.fragment}
+```{r, fig.height=8}
+target + 
+  geom_point(
+    data = res[1:2,],
+    aes(x=samples, y=samples_y), 
+    size = 5
+  ) + 
+  geom_point(
+    data = res[3,],
+    aes(x=samples, y=samples_y), 
+    size = 5, color=theme.g
+  )
+```
+:::
+::: {.fragment}
+```{r, fig.height=8}
+target + 
+  geom_point(
+    data = res[1:9,],
+    aes(x=samples, y=samples_y), 
+    size = 5
+  )  
+
+```
+:::
+::: {.fragment}
+```{r, fig.height=8}
+target + 
+  geom_point(
+    data = res[1:9,],
+    aes(x=samples, y=samples_y), 
+    size = 5
+  )  + 
+  geom_point(
+    data = res[10,],
+    aes(x=proposals, y=proposals_y), 
+    size = 5, color="grey"
+  )
+```
+:::
+::: {.fragment}
+```{r, fig.height=8}
+base + 
+  geom_point(
+    data = res[9,],
+    aes(x=samples, y=samples_y), 
+    size = 5
+  )  + 
+  geom_point(
+    data = res[10,],
+    aes(x=proposals, y=proposals_y), 
+    size = 5, color="grey"
+  ) + 
+  geom_segment(
+    data = res[9,],
+    aes(x=samples, y=samples_y), yend=0 
+  ) + 
+  geom_segment(
+    data = res[10,],
+    aes(x=proposals, y=proposals_y), yend=0,
+    color="grey"
+  )
+
+```
+:::
+::: {.fragment}
+```{r, fig.height=8}
+base + 
+  geom_point(
+    data = res[9,],
+    aes(x=samples, y=samples_y), 
+    size = 5
+  )  + 
+  geom_point(
+    data = res[10,],
+    aes(x=proposals, y=proposals_y), 
+    size = 5, color=theme.r
+  )
+
+```
+:::
+::: {.fragment}
+```{r, fig.height=8}
+base + 
+  geom_point(
+    data = res[9,],
+    aes(x=samples, y=samples_y), 
+    size = 5
+  )  + 
+  geom_point(
+    data = res[10,],
+    aes(x=proposals, y=proposals_y), 
+    size = 5, color=theme.r
+  ) + 
+  geom_label(
+    data = res[9,],
+    aes(x=samples, y=samples_y + .01), label="+1",
+    size = 5
+  )
+
+```
+:::
+::: {.fragment}
+```{r, fig.height=8}
+target + 
+  geom_point(
+    data = res,
+    aes(x=samples, y=samples_y), 
+    size = 5, alpha=.01
+  )
+
+```
+:::
+::: {.fragment .fade-in}
+```{r, fig.height=8}
+res %>% 
+  ggplot(aes(samples)) + 
+  geom_histogram(aes(y=after_stat(density)), bins = 50) + 
+  geom_function(fun=dnorm, size=2)
+
+```
+:::
+
+::: {.fragment}
+```{r, fig.height=8}
+p <- res %>% 
+  filter(i < 20) %>% 
+  ggplot(aes(i, samples)) + 
+  geom_line(aes(alpha=i < 5)) + 
+  geom_point(aes(alpha=i < 5, group=1), size=5) + 
+  xlim(0, 21) + 
+  scale_alpha_manual(values=c(0, 1)) + 
+  xlab("Iteration") +
+  ylab("Sample") + 
+  theme(axis.title = element_text(size=20))
+
+p
+```
+:::
+
+::: {.fragment}
+```{r, fig.height=8}
+p + 
+  geom_point(
+    data = tibble(i = rnorm(100, 5, .1), samples=rnorm(100, res$samples[4], .1)),
+    shape=21, fill="grey", colour="black", alpha=.2, size=5
+  )
+```
+:::
+
+
+::: {.fragment}
+```{r, fig.height=8}
+p + 
+  geom_point(
+    data = tibble(i = 5, samples=res$samples[5]),
+    shape=21, fill="grey", colour="black", alpha=1, size=5
+  ) 
+```
+:::
+
+::: {.fragment}
+```{r, fig.height=8}
+
+p + 
+  geom_point(
+    data = tibble(i = 5, samples=res$samples[5]),
+    shape=21, fill= theme.g, colour="black", alpha=1, size=5
+  ) 
+```
+
+:::
+
+::: {.fragment}
+```{r, fig.height=8}
+p + 
+  geom_point(
+    data = tibble(i = 5, samples=res$samples[5]),
+    shape=21, fill= "black", colour="black", alpha=1, size=5
+  ) 
+```
+
+
+:::
+::: {.fragment}
+```{r, fig.height=8}
+t <- p + scale_alpha_manual(values=c(1,1)) + geom_line()
+
+t <- ggExtra::ggMarginal(t, type="histogram", margins = "y", bins=20) 
+
+
+t$layout$t[1] <- 1
+t$layout$r[1] <- max(t$layout$r)
+t
+```
+
+:::
+
+::: {.fragment}
+```{r, fig.height=8}
+
+t <- res %>% 
+  ggplot(aes(i, samples)) + 
+  geom_line() + 
+  geom_point(size=1) + 
+  scale_alpha_manual(values=c(0, 1)) + 
+  xlab("Iteration") +
+  ylab("Sample") + 
+  theme(axis.title = element_text(size=20))
+
+t <- ggExtra::ggMarginal(t, type="histogram", margins = "y", bins=100) 
+
+
+t$layout$t[1] <- 1
+t$layout$r[1] <- max(t$layout$r)
+t
+```
+:::
+
+:::
+
+:::
+
+::: {.column width="50%"}
+::: {.r-stack}
+![](img/mh_pseudocode.png)
+<!-- ::: {.fragment} -->
+<!-- ```{r mh, eval=F, echo=T} -->
+<!-- #| code-line-numbers: "1|3-4|2|5|6" -->
+<!-- sampler_mh( -->
+<!--   start = 1, -->
+<!--   distr_name = "norm", -->
+<!--   distr_params = c(0, 1), -->
+<!--   sigma_prop = .1, -->
+<!--   iterations = 1e4 -->
+<!-- ) -->
+<!-- ``` -->
+<!-- ::: -->
+:::
+:::
+
+:::
+
+
+
+
+<!-- ::: {.fragment} -->
+<!-- ::: {.callout-tip} -->
+<!-- ### Documentation -->
+<!-- You can access function documentation by prepending a function with `?`, i.e. `?sampler_mh` -->
+<!-- ::: -->
+<!-- ::: -->
+
+
+
+
 
 ## MCMC in cognitive models
 
