@@ -730,39 +730,112 @@ bench::mark(
 
 
 
-::: {.column width="50%"}
-::: {.r-stack}
-::: {.fragment .fade-in-then-out}
-Multiple Chains
-![](img/multiple_chains.png)
-:::
-::: {.fragment .fade-in-then-out}
-Gradient-based Proposals
-![](img/gradient.png)
-:::
-::: {.fragment .fade-in-then-out}
-Autocorrelated Proposals
-![](img/momentum.png)
-:::
+## MCMC Algorithms Available {style="font-size:.8em"}
 
+::: {.r-stack}
+
+::: {.fragment .fade-in-then-out style="font-size:1em"}
+Three qualitative "tricks" to improve MCMC performance:
+
+- multiple chains
+- gradient-based proposals
+- autocorrelated proposals
+:::
 
 ::: {.fragment}
-| Sampler | Multiple Chains | Gradient-based Proposals | Autocorrelated Proposals |
-|---------|-----------------|--------------------------|--------------------------|
-| MH      | n               | n                        | n                        |
-| MC3     | y               | n                        | n                        |
-| HMC     | n               | y                        | n                        |
-| [RECMH]{.rn-fragment rn-type=strike-through rn-color=red rn-strokeWidth=3}   | n               | n                        | y                        |
-| MCHMC   | y               | y                        | n                        |
-| [RECMC$^3$]{.rn-fragment rn-type=strike-through rn-color=red rn-strokeWidth=3}  | y               | n                        | y                        |
-| REC     | n               | y                        | y                        |
-| MCREC   | y               | y                        | y                        |
+|Algorithm|`samplr` function|M. Chains|Gradients|Autoc. Proposals
+|---|--|-|-|-|
+| Metropolis Hastings (MH) [@hastings1970MonteCarloSampling]| `sampler_mh()` | ❌   | ❌   | ❌   |
+| Metropolis-coupled MCMC (MC$^3$) [@geyer1991MarkovChainMonte] | `sampler_mc3()` | ✅   | ❌   | ❌   |
+| Hamiltonian Monte Carlo (HMC) [@neal2011MCMCUsingHamiltonian] | `sampler_hmc()` | ❌   | ✅   | ❌   |
+| [RECMH*]{.rn-fragment rn-type=highlight rn-color=yellow} | `sampler_mh(alpha=)` | ❌   | ❌   | ✅   |
+| MCHMC                    | `sampler_mchmc()` | ✅   | ✅   | ❌   |
+| [RECMC3*]{.rn-fragment rn-type=highlight rn-color=yellow} |`sampler_mc3(alpha=)` |  ✅   | ❌   | ✅   |
+| RECHMC [@horowitz1991GeneralizedGuidedMonte]                      | `sampler_rec()` | ❌   | ✅   | ✅   |
+| MCREC                    | `sampler_mcrec()` | ✅   | ✅   | ✅   |
+
+\* Use these algorithms by setting the `alpha` parameter to a value other than 0 in the `sampler_mh()` and `sampler_mc3()` functions respectively. 
 :::
-:::
-:::
+
 
 :::
 
+
+## MCMC Algorithms Available 
+```{r}
+performance <- bench::mark(
+  "MH"={sampler_mh(
+    start = 1,
+    distr_name = "norm",
+    distr_params = c(0, 1),
+    sigma_prop = .1,
+    iterations = 1e4
+  )}, 
+  "MC3"={sampler_mc3(
+    start = 1,
+    distr_name = "norm",
+    distr_params = c(0, 1),
+    sigma_prop = .1,
+    iterations = 1e4
+  )},
+  "HMC"={sampler_hmc(
+    start = 1,
+    distr_name = "norm",
+    distr_params = c(0, 1),
+    L = 10,
+    iterations = 1e4
+  )},
+  "RECMH"={sampler_mc3(
+    start = 1,
+    distr_name = "norm",
+    distr_params = c(0, 1),
+    sigma_prop = .1, alpha= .6,
+    iterations = 1e4
+  )},
+  "MCHMC"={sampler_mchmc(
+    start = 1,
+    distr_name = "norm",
+    distr_params = c(0, 1),
+    L=10,
+    iterations = 1e4
+  )},
+  "RECMC3"={sampler_mc3(
+    start = 1,
+    distr_name = "norm",
+    distr_params = c(0, 1),
+    sigma_prop = .1, alpha=.6,
+    iterations = 1e4
+  )},
+  "RECHMC"={sampler_rec(
+    start = 1,
+    distr_name = "norm",
+    distr_params = c(0, 1),
+    L = 10, alpha = .6,
+    iterations = 1e4
+  )},
+  "MCREC"={sampler_mcrec(
+    start = 1,
+    distr_name = "norm",
+    distr_params = c(0, 1),
+    L = 10, alpha = .6,
+    iterations = 1e4
+  )},
+  check = F
+) 
+
+performance %>% 
+  select(expression:median) %>% 
+  mutate(across(min:median, \(x) {
+    str_remove(x, "ms") %>% 
+      as.numeric 
+  })) %>% 
+  arrange(median) %>% 
+  mutate(across(min:median, \(x){
+    round(x) %>% 
+      str_c("ms")
+  })) %>% 
+  knitr::kable()
+```
 
 ## Multiple Chains
 
