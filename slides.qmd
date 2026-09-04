@@ -1132,50 +1132,7 @@ update_points()
 draw_points()
 ```
 :::
-::: {.fragment fragment-index=17}
-```{r}
-#| fig.height: 8
-update_start()
-update_momentum()
-draw_momentum()
-```
-:::
-::: {.fragment fragment-index=18}
-```{r}
-#| fig.height: 8
-make_trajectory()
-draw_trajectory()
-```
-:::
-::: {.fragment fragment-index=19}
-```{r}
-#| fig.height: 8
-update_points()
-draw_points()
-```
-:::
-::: {.fragment fragment-index=20}
-```{r}
-#| fig.height: 8
-update_start()
-update_momentum()
-draw_momentum()
-```
-:::
-::: {.fragment fragment-index=21}
-```{r}
-#| fig.height: 8
-make_trajectory()
-draw_trajectory()
-```
-:::
-::: {.fragment fragment-index=22}
-```{r}
-#| fig.height: 8
-update_points()
-draw_points()
-```
-:::
+
 :::
 :::
 
