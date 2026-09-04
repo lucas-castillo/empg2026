@@ -29,8 +29,6 @@ knitr:
   opts_chunk:
     dev: png
     # dev.args: { bg: "transparent"}
-execute:
-  cache: true
 editor: source
 mouse-wheel: false
 history: false
