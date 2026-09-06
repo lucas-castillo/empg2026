@@ -1297,7 +1297,7 @@ t(sapply(1:1000, \(x){alpha_recycle(c(1,0), 0.75)})) %>%
 ::: {.incremental}
 
 - Package is well documented with several vignettes ([link](https://lucas-castillo.github.io/samplr/){target="blank"})
-- Paper [@castillo2025SamplrPackageTool] (just accepted! 🎉) at [Behaviour Research Methods]{.red style="font-weight:bold"} ([link](https://osf.io/preprints/psyarxiv/ax8hm_v2){target="blank"})
+- Paper [@castillo2025SamplrPackageTool] (just accepted! 🎉) at [Behaviour Research Methods]{.red style="font-weight:bold"} ([link](https://osf.io/preprints/psyarxiv/ax8hm){target="blank"})
   - Qualitative phenomena MCMC algorithms have fit
   - Introduction to ABS model and how its implemented in the package
   - Introduction to simulation-based inference (to fit these models without likelihoods).
