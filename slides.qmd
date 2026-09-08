@@ -614,7 +614,6 @@ In @davis2020ProcessModelCausal, MCMC explains people's failures to integrate ev
 ## MCMC appraches to cognition
 
 - perception [@gershman2012MultistabilityPerceptualInference]
-- item generation [@castillo2024ExplainingFlawsHuman]
 - judgment [@dasgupta2017WhereHypothesesCome]
 - estimation [@zhu2022UnderstandingStructureCognitive;@spicer2022PerceptualCognitiveJudgments]
 - learning [@bruckner2025DifferencesLearningLifespan]
